@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, BadgeDollarSign, Calendar, Shield } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/i18n/server";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

@@ -10,8 +10,8 @@ import {
   TriangleAlert,
   X,
 } from "lucide-react";
-import { getTranslations } from "next-intl/server";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "@/i18n/server";
+import { useTranslations } from "@/i18n/client";
 import { buttonVariants } from "@/components/ui/button";
 import { LESSONS, getLesson, getNextLesson } from "@/lib/guide-content";
 import { cn } from "@/lib/utils";

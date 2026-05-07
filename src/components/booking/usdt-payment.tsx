@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import { QRCodeSVG } from "qrcode.react";
 import { Copy, Timer, CircleCheck, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,20 +20,19 @@ export function UsdtPayment({ amountUsd, onConfirmed }: Props) {
   const t = useTranslations();
   const amount = (amountUsd * USDT_RATE).toFixed(2);
   const [secondsLeft, setSecondsLeft] = useState(EXPIRY_MIN * 60);
-  const [status, setStatus] = useState<"pending" | "confirmed" | "expired">(
-    "pending",
-  );
+  const [isConfirmed, setIsConfirmed] = useState(false);
   const [copied, setCopied] = useState(false);
+  const status: "pending" | "confirmed" | "expired" = isConfirmed
+    ? "confirmed"
+    : secondsLeft <= 0
+      ? "expired"
+      : "pending";
 
   useEffect(() => {
-    if (status !== "pending") return;
-    if (secondsLeft <= 0) {
-      setStatus("expired");
-      return;
-    }
+    if (isConfirmed || secondsLeft <= 0) return;
     const t = setTimeout(() => setSecondsLeft((s) => s - 1), 1000);
     return () => clearTimeout(t);
-  }, [secondsLeft, status]);
+  }, [isConfirmed, secondsLeft]);
 
   const mm = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
   const ss = String(secondsLeft % 60).padStart(2, "0");
@@ -48,7 +47,7 @@ export function UsdtPayment({ amountUsd, onConfirmed }: Props) {
   }
 
   function simulateConfirm() {
-    setStatus("confirmed");
+    setIsConfirmed(true);
     onConfirmed?.();
   }
 

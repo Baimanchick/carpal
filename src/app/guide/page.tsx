@@ -11,9 +11,10 @@ import {
   Languages,
   PawPrint,
 } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/i18n/server";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import type { ReactNode } from "react";
 
 export const metadata = { title: "Гид водителя для иностранцев" };
 
@@ -109,7 +110,7 @@ export default async function GuidePage() {
             {t.rich(
               "8 коротких уроков, 1 финальный квиз. Заработайте бейдж <b>Road Ready</b> — хост видит его, залог уменьшается, а страховка идёт со скидкой 10%.",
               {
-                b: (chunks) => (
+                b: (chunks: ReactNode) => (
                   <strong className="text-foreground">{chunks}</strong>
                 ),
               },

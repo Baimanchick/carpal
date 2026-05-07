@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import { cn } from "@/lib/utils";
 import { BADGE_META, TONE_CLASSES } from "@/lib/badges";
 import type { VerificationBadge as BadgeKey } from "@/lib/types";

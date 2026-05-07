@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
-import { Button, buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { getTranslations } from "@/i18n/server";
+import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { LocaleSwitcher } from "@/components/layout/locale-switcher";
+import {
+  HeaderAuthControls,
+  HeaderAuthMenuItems,
+} from "@/features/auth/components/header-auth";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,21 +47,7 @@ export async function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <LocaleSwitcher />
-          <Link
-            href="/login"
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }),
-              "hidden sm:flex",
-            )}
-          >
-            {t("Войти")}
-          </Link>
-          <Link
-            href="/signup"
-            className={cn(buttonVariants({ size: "sm" }), "hidden sm:flex")}
-          >
-            {t("Регистрация")}
-          </Link>
+          <HeaderAuthControls />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -74,12 +63,7 @@ export async function SiteHeader() {
                 </DropdownMenuItem>
               ))}
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/login">{t("Войти")}</Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/signup">{t("Регистрация")}</Link>
-              </DropdownMenuItem>
+              <HeaderAuthMenuItems />
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

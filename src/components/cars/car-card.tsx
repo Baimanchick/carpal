@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star, Users, Fuel, Cog, MapPin } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import { cn } from "@/lib/utils";
 import type { Car } from "@/lib/types";
 import { VerificationBadge } from "./verification-badge";

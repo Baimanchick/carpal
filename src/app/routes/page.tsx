@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Mountain, TriangleAlert } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/i18n/server";
 import { DESTINATIONS } from "@/lib/mock/destinations";
 
 export const metadata = { title: "Популярные маршруты" };

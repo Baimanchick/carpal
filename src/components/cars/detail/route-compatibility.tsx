@@ -1,5 +1,5 @@
 import { Check, TriangleAlert, Mountain } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import type { Car, RouteTag } from "@/lib/types";
 
 const ALL_ROUTES: { value: RouteTag; difficulty: string }[] = [

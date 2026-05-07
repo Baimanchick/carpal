@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Heart, Share2, Images } from "lucide-react";
 import { cn } from "@/lib/utils";

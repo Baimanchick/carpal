@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages } from "next-intl/server";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { AppProviders } from "@/app/providers";
+import { NextIntlClientProvider } from "@/i18n/client";
+import { getLocale, getMessages } from "@/i18n/server";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import "./globals.css";
@@ -41,13 +41,13 @@ export default async function RootLayout({
     >
       <body className="min-h-full bg-background text-foreground">
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <TooltipProvider>
+          <AppProviders>
             <div className="flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1">{children}</main>
               <SiteFooter />
             </div>
-          </TooltipProvider>
+          </AppProviders>
         </NextIntlClientProvider>
       </body>
     </html>

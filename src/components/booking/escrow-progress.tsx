@@ -6,7 +6,7 @@ import {
   BadgeCheck,
   type LucideIcon,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import { cn } from "@/lib/utils";
 
 export type EscrowStep =

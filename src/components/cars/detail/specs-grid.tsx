@@ -8,7 +8,7 @@ import {
   Gauge,
   Wrench,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import type { Car } from "@/lib/types";
 
 export function SpecsGrid({ car }: { car: Car }) {

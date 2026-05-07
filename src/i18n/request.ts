@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { getRequestConfig } from "next-intl/server";
 import { DEFAULT_LOCALE, LOCALES, LOCALE_COOKIE, type Locale } from "./config";
+import { decodeMessageKey, encodeMessages } from "./message-keys";
 
 export default getRequestConfig(async () => {
   const cookieStore = await cookies();
@@ -12,19 +13,21 @@ export default getRequestConfig(async () => {
       ? cookieLocale
       : DEFAULT_LOCALE;
 
-  const messages = (await import(`../../messages/${locale}.json`)).default;
+  const messages = encodeMessages(
+    (await import(`../../messages/${locale}.json`)).default,
+  );
 
   return {
     locale,
     messages,
-    onError(error) {
-      // Missing translations fall back to the key (which is Russian source text),
+    onError(error: { code: string }) {
+      // Missing translations fall back to the original source text,
       // so don't spam the console for every missing entry in en/kg.
       if (error.code === "MISSING_MESSAGE") return;
       console.error(error);
     },
-    getMessageFallback({ key }) {
-      return key;
+    getMessageFallback({ key }: { key: string }) {
+      return decodeMessageKey(key);
     },
   };
 });

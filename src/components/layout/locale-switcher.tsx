@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "@/i18n/client";
 import { Globe, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {

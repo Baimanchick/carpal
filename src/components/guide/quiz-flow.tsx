@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import {
   ArrowRight,
   ArrowLeft,

@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useId, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "@/i18n/client";
 import { differenceInCalendarDays, format } from "date-fns";
 import {
   CalendarDays,
@@ -646,6 +646,12 @@ function CardForm() {
 
 function BankForm({ total }: { total: number }) {
   const t = useTranslations();
+  const paymentReference = useId()
+    .replace(/:/g, "")
+    .slice(-4)
+    .padStart(4, "0")
+    .toUpperCase();
+
   return (
     <div className="space-y-3">
       <Alert>
@@ -672,9 +678,7 @@ function BankForm({ total }: { total: number }) {
         </li>
         <li className="flex justify-between">
           <span className="text-muted-foreground">{t("Назначение")}</span>
-          <span className="font-mono">
-            KP-2026-{Math.floor(Math.random() * 9000 + 1000)}
-          </span>
+          <span className="font-mono">KP-2026-{paymentReference}</span>
         </li>
         <li className="flex justify-between border-t border-dashed border-border pt-2">
           <span className="text-muted-foreground">{t("Сумма")}</span>

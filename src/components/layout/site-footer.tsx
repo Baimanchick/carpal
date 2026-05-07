@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Camera, Send, Bird } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations } from "@/i18n/server";
 import { BrandMark } from "@/components/layout/brand-mark";
 
 const SECTIONS: { title: string; links: { label: string; href: string }[] }[] =
