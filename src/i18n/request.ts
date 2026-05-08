@@ -17,6 +17,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages,
+    timeZone: "Asia/Bishkek",
     onError: onI18nError,
     getMessageFallback: getI18nMessageFallback,
   };
