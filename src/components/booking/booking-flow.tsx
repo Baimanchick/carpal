@@ -2,8 +2,8 @@
 
 import { useId, useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { useTranslations } from "@/i18n/client";
+import { Link } from "@/i18n/navigation";
 import { differenceInCalendarDays, format } from "date-fns";
 import {
   CalendarDays,

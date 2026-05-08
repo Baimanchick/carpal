@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "@/i18n/client";
+import { Link } from "@/i18n/navigation";
 import { useLogoutMutation } from "@/features/auth/hooks/use-auth";
 import { useAuthStore } from "@/features/auth/model/auth-store";
 
@@ -22,23 +22,12 @@ export function HeaderAuthControls() {
 
   if (!user) {
     return (
-      <>
-        <Link
-          href="/login"
-          className={cn(
-            buttonVariants({ variant: "ghost", size: "sm" }),
-            "hidden sm:flex",
-          )}
-        >
-          {t("Войти")}
-        </Link>
-        <Link
-          href="/signup"
-          className={cn(buttonVariants({ size: "sm" }), "hidden sm:flex")}
-        >
-          {t("Регистрация")}
-        </Link>
-      </>
+      <Link
+        href="/login"
+        className={cn(buttonVariants({ size: "sm" }), "hidden sm:flex")}
+      >
+        {t("Войти")}
+      </Link>
     );
   }
 
@@ -67,14 +56,9 @@ export function HeaderAuthMenuItems() {
 
   if (!isInitialized || !user) {
     return (
-      <>
-        <DropdownMenuItem asChild>
-          <Link href="/login">{t("Войти")}</Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/signup">{t("Регистрация")}</Link>
-        </DropdownMenuItem>
-      </>
+      <DropdownMenuItem asChild>
+        <Link href="/login">{t("Войти")}</Link>
+      </DropdownMenuItem>
     );
   }
 

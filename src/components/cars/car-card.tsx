@@ -1,7 +1,9 @@
+'use client'
+
 import Image from "next/image";
-import Link from "next/link";
 import { Star, Users, Fuel, Cog, MapPin } from "lucide-react";
 import { useTranslations } from "@/i18n/client";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import type { Car } from "@/lib/types";
 import { VerificationBadge } from "./verification-badge";
@@ -35,7 +37,7 @@ export function CarCard({ car, className }: Props) {
         className,
       )}
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-muted">
+      <div className="relative aspect-4/3 w-full overflow-hidden bg-muted">
         <Image
           src={car.photos[0]}
           alt={`${car.make} ${car.model}`}

@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
 import { useTranslations } from "@/i18n/client";
+import { useRouter } from "@/i18n/navigation";
 import {
   CalendarDays,
   Lock,

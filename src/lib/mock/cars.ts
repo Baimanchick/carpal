@@ -347,5 +347,3 @@ export const CARS: Car[] = [
 export function getCar(idOrSlug: string): Car | undefined {
   return CARS.find((c) => c.id === idOrSlug || c.slug === idOrSlug);
 }
-
-export const FEATURED_CARS = CARS.slice(0, 4);

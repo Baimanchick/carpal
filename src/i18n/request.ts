@@ -1,17 +1,14 @@
-import { cookies } from "next/headers";
+import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
-import { DEFAULT_LOCALE, LOCALES, LOCALE_COOKIE, type Locale } from "./config";
-import { decodeMessageKey, encodeMessages } from "./message-keys";
+import { getI18nMessageFallback, onI18nError } from "./error-handling";
+import { routing } from "./routing";
+import { encodeMessages } from "./message-keys";
 
-export default getRequestConfig(async () => {
-  const cookieStore = await cookies();
-  const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value as
-    | Locale
-    | undefined;
-  const locale: Locale =
-    cookieLocale && LOCALES.includes(cookieLocale)
-      ? cookieLocale
-      : DEFAULT_LOCALE;
+export default getRequestConfig(async ({ requestLocale }) => {
+  const requested = await requestLocale;
+  const locale = hasLocale(routing.locales, requested)
+    ? requested
+    : routing.defaultLocale;
 
   const messages = encodeMessages(
     (await import(`../../messages/${locale}.json`)).default,
@@ -20,14 +17,7 @@ export default getRequestConfig(async () => {
   return {
     locale,
     messages,
-    onError(error: { code: string }) {
-      // Missing translations fall back to the original source text,
-      // so don't spam the console for every missing entry in en/kg.
-      if (error.code === "MISSING_MESSAGE") return;
-      console.error(error);
-    },
-    getMessageFallback({ key }: { key: string }) {
-      return decodeMessageKey(key);
-    },
+    onError: onI18nError,
+    getMessageFallback: getI18nMessageFallback,
   };
 });

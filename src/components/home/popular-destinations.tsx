@@ -1,7 +1,7 @@
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { getTranslations } from "@/i18n/server";
+import { Link } from "@/i18n/navigation";
 import { DESTINATIONS } from "@/lib/mock/destinations";
 
 const DIFFICULTY_LABEL: Record<"easy" | "moderate" | "hard", string> = {

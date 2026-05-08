@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { Star, MapPin, ChevronRight } from "lucide-react";
 import { useTranslations } from "@/i18n/client";
+import { Link } from "@/i18n/navigation";
 import type { Car } from "@/lib/types";
 import { VerificationBadge } from "@/components/cars/verification-badge";
 

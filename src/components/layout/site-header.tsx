@@ -1,27 +1,12 @@
-import Link from "next/link";
 import { getTranslations } from "@/i18n/server";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import { BrandMark } from "@/components/layout/brand-mark";
-import { LocaleSwitcher } from "@/components/layout/locale-switcher";
-import {
-  HeaderAuthControls,
-  HeaderAuthMenuItems,
-} from "@/features/auth/components/header-auth";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
+import { SiteHeaderActions } from "@/components/layout/site-header-actions";
 
 const NAV: { label: string; href: string }[] = [
   { label: "Найти машину", href: "/cars" },
   { label: "Маршруты", href: "/routes" },
   { label: "Карта безопасности", href: "/map" },
-  { label: "Гид водителя", href: "/guide" },
-  { label: "Стать хостом", href: "/host" },
 ];
 
 export async function SiteHeader() {
@@ -44,29 +29,7 @@ export async function SiteHeader() {
             </Link>
           ))}
         </nav>
-
-        <div className="flex items-center gap-2">
-          <LocaleSwitcher />
-          <HeaderAuthControls />
-
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="size-5" />
-                <span className="sr-only">{t("Открыть меню")}</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              {NAV.map((item) => (
-                <DropdownMenuItem key={item.href} asChild>
-                  <Link href={item.href}>{t(item.label)}</Link>
-                </DropdownMenuItem>
-              ))}
-              <DropdownMenuSeparator />
-              <HeaderAuthMenuItems />
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+        <SiteHeaderActions navItems={NAV} />
       </div>
     </header>
   );

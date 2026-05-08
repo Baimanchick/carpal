@@ -49,5 +49,3 @@ export const REVIEWS: Review[] = [
     trip: "Bishkek → Issyk-Kul",
   },
 ];
-
-export const TESTIMONIALS = REVIEWS;

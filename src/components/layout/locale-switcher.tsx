@@ -1,8 +1,8 @@
 "use client";
 
 import { useTransition } from "react";
-import { useLocale, useTranslations } from "@/i18n/client";
-import { Globe, Check } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { Check, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,23 +12,31 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLocale, useTranslations } from "@/i18n/client";
 import {
   LOCALES,
   LOCALE_LABELS,
   LOCALE_SHORT_LABELS,
   type Locale,
 } from "@/i18n/config";
-import { setLocale } from "@/i18n/actions";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 export function LocaleSwitcher() {
   const t = useTranslations();
   const current = useLocale() as Locale;
+  const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
 
   function pick(next: Locale) {
     if (next === current) return;
+
     startTransition(() => {
-      setLocale(next);
+      const query = searchParams.toString();
+      router.replace(query ? `${pathname}?${query}` : pathname, {
+        locale: next,
+      });
     });
   }
 
