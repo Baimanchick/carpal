@@ -5,7 +5,18 @@ import { Link } from "@/i18n/navigation";
 import { getTranslations } from "@/i18n/server";
 import { DESTINATIONS } from "@/lib/mock/destinations";
 
-export const metadata = { title: "Популярные маршруты" };
+type MetadataProps = {
+  params: Promise<{ locale: string }>;
+};
+
+export async function generateMetadata({ params }: MetadataProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+
+  return {
+    title: t("Популярные маршруты"),
+  };
+}
 
 const DIFFICULTY_LABEL = {
   easy: "Лёгкий асфальт",
@@ -179,7 +190,7 @@ export default async function RoutesPage({ params }: RoutesPageProps) {
                   {d.name}
                 </h3>
                 <p className="mt-1 text-xs text-background/80">
-                  {d.region} · {d.carsCount} {t("машин")}
+                  {t(d.region)} · {d.carsCount} {t("машин")}
                 </p>
               </div>
             </Link>

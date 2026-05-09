@@ -119,9 +119,6 @@ function HeaderPhone() {
           <Phone className="size-4 text-brand" />
           {SUPPORT_PHONE}
         </a>
-        <p className="mt-1.5 text-xs text-muted-foreground">
-          {t("Поддержка ежедневно 9:00–21:00")}
-        </p>
       </PopoverContent>
     </Popover>
   );

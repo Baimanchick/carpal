@@ -14,8 +14,8 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <>
       <HeroSearch />
-      <PopularDestinations />
       <LeadForms />
+      <PopularDestinations />
     </>
   );
 }

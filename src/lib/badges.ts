@@ -9,6 +9,7 @@ import {
   Languages,
   ShieldCheck,
   Compass,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 import type { VerificationBadge } from "@/lib/types";
@@ -28,7 +29,7 @@ export interface BadgeMeta {
   description: string;
 }
 
-export const BADGE_META: Record<VerificationBadge, BadgeMeta> = {
+const BADGE_META_FULL = {
   verified: {
     label: "Проверено",
     icon: BadgeCheck,
@@ -83,13 +84,27 @@ export const BADGE_META: Record<VerificationBadge, BadgeMeta> = {
     tone: "emerald",
     description: "Авто застраховано партнёром на период поездки.",
   },
-  "four-wd": {
+  "4x4": {
     label: "4x4",
     icon: Compass,
     tone: "rose",
     description: "Полный привод с понижающей передачей.",
   },
-};
+  "instant-book": {
+    label: "Мгновенное бронирование",
+    icon: Zap,
+    tone: "amber",
+    description: "Можно бронировать без подтверждения хоста.",
+  },
+} satisfies Record<VerificationBadge, BadgeMeta>;
+
+export const BADGE_META = BADGE_META_FULL as Record<string, BadgeMeta>;
+
+export function normalizeBadgeKey(raw: string): VerificationBadge | null {
+  const slug = raw.trim().toLowerCase().replace(/\s+/g, "-");
+
+  return slug in BADGE_META_FULL ? (slug as VerificationBadge) : null;
+}
 
 export const TONE_CLASSES: Record<BadgeMeta["tone"], string> = {
   emerald:

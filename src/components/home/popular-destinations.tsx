@@ -68,7 +68,7 @@ export async function PopularDestinations() {
                   <ArrowUpRight className="size-4 translate-y-px opacity-0 transition-opacity group-hover:opacity-100" />
                 </h3>
                 <p className="mt-1 text-xs text-background/75">
-                  {d.region} · {d.blurb}
+                  {t(d.region)} · {t(d.blurb)}
                 </p>
               </div>
             </Link>

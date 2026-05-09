@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import { getCar } from "@/lib/mock/cars";
 import { BookingFlow } from "@/components/booking/booking-flow";
+import { getTranslations } from "@/i18n/server";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
   searchParams: Promise<{
     from?: string;
     to?: string;
@@ -11,9 +12,18 @@ interface PageProps {
   }>;
 }
 
-export const metadata = {
-  title: "Оформление",
+type MetadataProps = {
+  params: Promise<{ locale: string }>;
 };
+
+export async function generateMetadata({ params }: MetadataProps) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale });
+
+  return {
+    title: t("Оформление"),
+  };
+}
 
 export default async function BookingPage({
   params,

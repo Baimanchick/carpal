@@ -4,7 +4,7 @@ import { useTranslations } from "@/i18n/client";
 import { Button } from "@/components/ui/button";
 import type { Host } from "@/lib/types";
 
-const LANG_LABEL: Record<"ru" | "kg" | "en", string> = {
+const LANG_LABEL: Record<string, string> = {
   en: "English",
   ru: "Русский",
   kg: "Кыргызча",
@@ -60,7 +60,7 @@ export function OwnerCard({ host }: { host: Host }) {
 
           <p className="mt-3 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
             <Languages className="size-3.5" />
-            {host.languages.map((l) => LANG_LABEL[l]).join(" · ")}
+            {host.languages.map((l) => LANG_LABEL[l] ?? l).join(" · ")}
           </p>
 
           <Button variant="outline" size="sm" className="mt-4">

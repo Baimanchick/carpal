@@ -36,8 +36,16 @@ function wrapTranslator(translator: Translator) {
   return wrapped;
 }
 
-export async function getTranslations() {
-  return wrapTranslator((await getBaseTranslations()) as unknown as Translator);
+type GetTranslationsOptions = {
+  locale?: string;
+};
+
+export async function getTranslations(options?: GetTranslationsOptions) {
+  return wrapTranslator(
+    (await (options?.locale
+      ? getBaseTranslations({ locale: options.locale })
+      : getBaseTranslations())) as unknown as Translator,
+  );
 }
 
 export { getLocale, getMessages, getRequestConfig };

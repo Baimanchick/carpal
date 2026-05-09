@@ -224,7 +224,7 @@ export function LeadForms() {
     >
       <span
         aria-hidden
-        className="pointer-events-none absolute -left-48 -top-44 -z-10 h-[460px] w-[460px] rounded-full bg-gradient-to-br from-brand to-brand/70 opacity-90 sm:-left-40"
+        className="pointer-events-none absolute -left-40 -top-32 -z-10 hidden h-[460px] w-[460px] rounded-full bg-gradient-to-br from-brand to-brand/70 opacity-90 sm:block"
       />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
@@ -234,7 +234,7 @@ export function LeadForms() {
               <h2 className="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
                 {t("Поговорим")}
               </h2>
-              <p className="mt-2 text-sm text-muted-foreground sm:text-base">
+              <p className="mt-2 text-sm text-foreground/70 sm:text-base">
                 {t("С кем мы связываемся?")}
               </p>
             </div>
@@ -419,7 +419,7 @@ function TouristForm({ onSuccess, utm }: FormProps) {
       noValidate
     >
       <FieldRow label={t("Контакт")} required>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-3">
           <div
             role="radiogroup"
             aria-label={t("Тип контакта")}
@@ -855,11 +855,11 @@ function SubmitArea({
         </div>
       ) : null}
 
-      <div className="flex justify-end">
+      <div className="flex sm:justify-end">
         <Button
           type="submit"
           disabled={mutationPending}
-          className="h-11 rounded-md bg-brand px-7 text-xs font-semibold uppercase tracking-[0.16em] text-brand-foreground shadow-sm hover:bg-brand/90 disabled:opacity-60"
+          className="h-11 w-full rounded-md bg-brand px-5 text-xs font-semibold uppercase tracking-[0.12em] text-brand-foreground shadow-sm hover:bg-brand/90 disabled:opacity-60 sm:w-auto sm:px-7 sm:tracking-[0.16em]"
         >
           {mutationPending ? loadingLabel : label}
           <Send className="size-3.5" />

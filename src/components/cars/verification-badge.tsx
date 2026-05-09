@@ -1,10 +1,9 @@
 import { useTranslations } from "@/i18n/client";
 import { cn } from "@/lib/utils";
-import { BADGE_META, TONE_CLASSES } from "@/lib/badges";
-import type { VerificationBadge as BadgeKey } from "@/lib/types";
+import { BADGE_META, TONE_CLASSES, normalizeBadgeKey } from "@/lib/badges";
 
 interface Props {
-  kind: BadgeKey;
+  kind: string;
   size?: "sm" | "md";
   className?: string;
   iconOnly?: boolean;
@@ -17,8 +16,15 @@ export function VerificationBadge({
   iconOnly,
 }: Props) {
   const t = useTranslations();
-  const meta = BADGE_META[kind];
+  const normalizedKey = normalizeBadgeKey(kind);
+  const meta = normalizedKey ? BADGE_META[normalizedKey] : null;
+
+  if (!meta) {
+    return null;
+  }
+
   const Icon = meta.icon;
+
   return (
     <span
       title={t(meta.description)}

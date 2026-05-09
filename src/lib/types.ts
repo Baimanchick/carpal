@@ -8,7 +8,8 @@ export type VerificationBadge =
   | "premium-owner"
   | "english-owner"
   | "insurance"
-  | "four-wd";
+  | "instant-book"
+  | "4x4";
 
 export type Transmission = "automatic" | "manual";
 export type FuelType = "petrol" | "diesel" | "hybrid" | "electric";
@@ -21,21 +22,27 @@ export type CarBodyType =
   | "pickup"
   | "hatchback";
 
-export type City =
-  | "Bishkek"
-  | "Osh"
-  | "Karakol"
-  | "Cholpon-Ata"
-  | "Naryn"
-  | "Talas";
+export type City = string;
 
-export type RouteTag =
-  | "Son-Kul"
-  | "Issyk-Kul"
-  | "Ala-Archa"
-  | "Karakol"
-  | "Chon-Kemin"
-  | "Pamir Highway";
+export type RouteTag = string;
+
+export const KNOWN_CITIES = [
+  "Bishkek",
+  "Osh",
+  "Karakol",
+  "Cholpon-Ata",
+  "Naryn",
+  "Talas",
+] as const;
+
+export const KNOWN_ROUTE_TAGS = [
+  "Son-Kul",
+  "Issyk-Kul",
+  "Ala-Archa",
+  "Karakol",
+  "Chon-Kemin",
+  "Pamir Highway",
+] as const;
 
 export interface Host {
   id: string;
@@ -44,7 +51,7 @@ export interface Host {
   rating: number;
   trips: number;
   responseRate: number;
-  languages: ("ru" | "kg" | "en")[];
+  languages: string[];
   isPro?: boolean;
   joinedYear: number;
 }
@@ -64,12 +71,12 @@ export interface Car {
   fuelConsumption: number; // L/100km
   pricePerDay: number; // USD
   deposit: number; // USD
-  discountWeekly?: number; // %
-  discountMonthly?: number; // %
+  discountWeekly?: number | null; // %
+  discountMonthly?: number | null; // %
   city: City;
   pickupLocation: string;
-  badges: VerificationBadge[];
-  routeTags: RouteTag[];
+  badges: string[];
+  routeTags: string[];
   rating: number;
   trips: number;
   reviewsCount: number;
@@ -81,6 +88,11 @@ export interface Car {
   hasRoofTent: boolean;
   hasChildSeat: boolean;
   hasInsurance: boolean;
+  hasRoofRack: boolean;
+  mountainReady: boolean;
+  winterReady: boolean;
+  instantBook: boolean;
+  host?: Host | null;
 }
 
 export interface Review {

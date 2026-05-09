@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
-import { CARS, getCar } from "@/lib/mock/cars";
-import { getHost } from "@/lib/mock/hosts";
+import { getCar, localeToLang } from "@/services/cars/cars.server";
 import { REVIEWS } from "@/lib/mock/reviews";
+import { getTranslations } from "@/i18n/server";
 import { PhotoGallery } from "@/components/cars/detail/photo-gallery";
 import { CarHeader } from "@/components/cars/detail/car-header";
 import { SpecsGrid } from "@/components/cars/detail/specs-grid";
@@ -14,17 +14,20 @@ import { SafetyStatus } from "@/components/cars/detail/safety-status";
 import { BookingWidget } from "@/components/cars/detail/booking-widget";
 
 interface Props {
-  params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  return CARS.map((c) => ({ slug: c.slug }));
+  params: Promise<{ locale: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { slug } = await params;
-  const car = getCar(slug);
-  if (!car) return { title: "Машина не найдена" };
+  const { locale, slug } = await params;
+  const t = await getTranslations({ locale });
+  const car = await getCar(slug, localeToLang(locale));
+
+  if (!car) {
+    return {
+      title: t("Машина не найдена"),
+    };
+  }
+
   return {
     title: `${car.make} ${car.model} ${car.year} · ${car.city}`,
     description: car.description,
@@ -32,11 +35,13 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function CarPage({ params }: Props) {
-  const { slug } = await params;
-  const car = getCar(slug);
-  if (!car) notFound();
+  const { locale, slug } = await params;
+  const car = await getCar(slug, localeToLang(locale));
 
-  const host = getHost(car.hostId);
+  if (!car) {
+    notFound();
+  }
+
   const carReviews = REVIEWS.filter((r) => r.carId === car.id);
   const displayReviews = carReviews.length >= 2 ? carReviews : REVIEWS;
 
@@ -57,7 +62,7 @@ export default async function CarPage({ params }: Props) {
             <FeaturesList car={car} />
             <RouteCompatibility car={car} />
             <SafetyStatus car={car} />
-            {host ? <OwnerCard host={host} /> : null}
+            {car.host ? <OwnerCard host={car.host} /> : null}
             <ReviewsSection
               reviews={displayReviews}
               rating={car.rating}
